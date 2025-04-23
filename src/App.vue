@@ -1,7 +1,8 @@
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, watch } from 'vue'
 import Watcher from './components/Watch.vue'
 import Props from './components/Propss.vue'
+import JSConfetti from 'js-confetti'
 
 let id = 0
 
@@ -27,6 +28,21 @@ function addTodo() {
 function removeTodo(todo) {
   todos.value = todos.value.filter((t) => t !== todo)
 }
+
+const confetti = new JSConfetti()
+
+function showConfetti() {
+  confetti.addConfetti()
+}
+
+const allCompleted = ref(false)
+
+watch(todos, (newTodos) => {
+  allCompleted.value = newTodos.every((todo) => todo.done)
+  if (allCompleted.value) {
+    showConfetti()
+  }
+}, { deep: true })
 </script>
 
 <template>
@@ -41,22 +57,27 @@ function removeTodo(todo) {
       <button @click="removeTodo(todo)">X</button>
     </li>
     <button @click="hideCompleted = !hideCompleted">
-    {{ hideCompleted ? 'Show all' : 'Hide completed' }}
-  </button>
+      {{ hideCompleted ? 'Show all' : 'Hide completed' }}
+    </button>
   </ul>
-  
 
   <Watcher />
   <div>
-   <Props /> 
+    <Props /> 
   </div>
   
-  
-  
+  <div>
+    <h1 v-if="allCompleted">🎉 Congratulations!</h1>
+  </div>
 </template>
 
 <style>
 .done {
   text-decoration: line-through;
+}
+h1 {
+  text-align: center;
+  cursor: pointer;
+  margin-top: 3em;
 }
 </style>
