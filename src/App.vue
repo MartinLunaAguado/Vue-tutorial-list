@@ -1,6 +1,7 @@
 <script setup>
 import { ref, computed } from 'vue'
 import Watcher from './components/Watch.vue'
+import Props from './components/Propss.vue'
 
 let id = 0
 
@@ -46,6 +47,9 @@ function removeTodo(todo) {
   
 
   <Watcher/>
+  <div>
+    <Props/>
+  </div>
   
   
 </template>
