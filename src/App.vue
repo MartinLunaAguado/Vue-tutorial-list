@@ -1,5 +1,6 @@
 <script setup>
 import { ref, computed } from 'vue'
+import Watcher from './components/Watch.vue'
 
 let id = 0
 
@@ -38,10 +39,15 @@ function removeTodo(todo) {
       <span :class="{ done: todo.done }">{{ todo.text }}</span>
       <button @click="removeTodo(todo)">X</button>
     </li>
-  </ul>
-  <button @click="hideCompleted = !hideCompleted">
+    <button @click="hideCompleted = !hideCompleted">
     {{ hideCompleted ? 'Show all' : 'Hide completed' }}
   </button>
+  </ul>
+  
+
+  <Watcher/>
+  
+  
 </template>
 
 <style>
