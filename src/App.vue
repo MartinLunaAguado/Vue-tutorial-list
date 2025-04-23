@@ -46,10 +46,11 @@ function removeTodo(todo) {
   </ul>
   
 
-  <Watcher/>
+  <Watcher />
   <div>
-    <Props/>
+   <Props /> 
   </div>
+  
   
   
 </template>
